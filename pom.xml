@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
@@ -44,6 +44,31 @@
     </dependency>
 
   </dependencies>
+
+  <!-- https://stackoverflow.com/a/20074581/1762224 -->
+  <!-- mvn resources:copy-resources -Pcopy-jsp -->
+  <profiles>
+    <profile>
+      <id>copy-jsp</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.3.1</version>
+            <configuration>
+              <outputDirectory>${basedir}/target/${project.name}-${project.version}/jsp</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/webapp/WEB-INF/jsp</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <build>
     <!-- WAR filename -->
